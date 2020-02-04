@@ -1,4 +1,5 @@
 import {createGlobalStyle} from 'styled-components'
+import bgpattern from './hideout.svg'
 import normalize from 'normalize.css'
 
 export const GenericStyles = createGlobalStyle`
@@ -25,6 +26,6 @@ ${normalize}
 		box-sizing: inherit;
 	}
   body {
-    background-color: #e4e4ec;
+    background: rgb(129, 166, 255) url(${bgpattern});
   }
 `

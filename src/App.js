@@ -1,11 +1,16 @@
 import React from 'react'
-import {GenericStyles, AppWrapper} from 'src/styles'
+import {GenericStyles, AppWrapper, MainWrapper} from 'src/styles'
 
 function App() {
   return (
     <AppWrapper>
       <GenericStyles />
-      <h1>Hello World</h1>
+
+      <MainWrapper>
+        <header>Adopt Me</header>
+        <sidebar>Side</sidebar>
+        <main>Main </main>
+      </MainWrapper>
     </AppWrapper>
   )
 }
