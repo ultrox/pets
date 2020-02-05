@@ -1,6 +1,7 @@
 import React from 'react'
 import {GenericStyles, AppWrapper, MainWrapper} from 'src/styles'
 import {Sidebar, Main} from 'src/styles/layout'
+import Pet from 'src/Pet'
 import styled from 'styled-components'
 
 const ANIMALS = [
@@ -25,7 +26,6 @@ function App() {
             method="POST"
             onSubmit={e => {
               e.preventDefault()
-              console.log('hi')
             }}
           >
             <label>
@@ -43,7 +43,7 @@ function App() {
             <label>
               Breed
               <select>
-                <option></option>
+                <option />
               </select>
             </label>
             <button>Submit</button>
@@ -59,12 +59,32 @@ function App() {
   )
 }
 
-function Pets() {
-  return <Pet />
+const fakePetData = {
+  photos: [
+    {
+      small:
+        'https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44594159/1/?bust=1556767422&width=100',
+    },
+  ],
+  name: 'Fat Boy Slim',
+  type: 'Dog',
+  url: '',
+  id: '112',
+  breeds: {
+    primary: 'Rottweiler',
+  },
+  contact: {
+    address: {
+      city: 'Stanwood',
+      state: 'WA',
+    },
+  },
 }
 
-function Pet() {
-  return <article>Hello I am Pet</article>
+function Pets() {
+  return [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}].map(p => {
+    return <Pet key={p.id} pet={fakePetData} />
+  })
 }
 
 const Form = styled.form`

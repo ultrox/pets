@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {screens, colors} from 'src/styles/settings'
 
-export const Sidebar = styled.div`
+export const Sidebar = styled.aside`
   background-color: #fff;
   border-radius: 5px;
   flex: 0 1 300px;
@@ -16,7 +16,7 @@ export const Sidebar = styled.div`
   }
 `
 
-export const Main = styled.div`
+export const Main = styled.main`
   background-color: ${colors.indigo[500]}
   border-radius: 5px;
   padding: 2rem;
