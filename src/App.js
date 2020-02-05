@@ -1,54 +1,18 @@
 import React from 'react'
 import {GenericStyles, AppWrapper, MainWrapper} from 'src/styles'
-import {Sidebar, Main} from 'src/styles/layout'
+import {Main} from 'src/styles/layout'
+import Sidebar from 'src/Sidebar'
 import Pet from 'src/Pet'
 import styled from 'styled-components'
 
-const ANIMALS = [
-  'barnyard',
-  'bird',
-  'cat',
-  'dog',
-  'horse',
-  'rabbit',
-  'scales-fins-other',
-  'small-furry',
-]
-
+function noop() {}
 function App() {
   return (
     <AppWrapper>
       <GenericStyles />
 
       <MainWrapper>
-        <Sidebar>
-          <Form
-            method="POST"
-            onSubmit={e => {
-              e.preventDefault()
-            }}
-          >
-            <label>
-              Location
-              <input type="text" />
-            </label>
-            <label>
-              Animal
-              <select>
-                {ANIMALS.map(a => (
-                  <option key={a}>{a}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Breed
-              <select>
-                <option />
-              </select>
-            </label>
-            <button>Submit</button>
-          </Form>
-        </Sidebar>
+        <Sidebar onPetSubmit={noop} />
         <Main>
           <Content>
             <Pets pets={{}} />
@@ -87,16 +51,5 @@ function Pets() {
   })
 }
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-
-  select,
-  input {
-    display: block;
-    width: 100%;
-  }
-`
 const Content = styled.div``
 export default App
