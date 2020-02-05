@@ -1,5 +1,6 @@
 import React from 'react'
 import {GenericStyles, AppWrapper, MainWrapper} from 'src/styles'
+import {Sidebar, Main} from 'src/styles/layout'
 
 function App() {
   return (
@@ -7,9 +8,8 @@ function App() {
       <GenericStyles />
 
       <MainWrapper>
-        <header>Adopt Me</header>
-        <sidebar>Side</sidebar>
-        <main>Main </main>
+        <Sidebar>Side</Sidebar>
+        <Main>Main </Main>
       </MainWrapper>
     </AppWrapper>
   )

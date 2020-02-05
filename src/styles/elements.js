@@ -6,19 +6,35 @@ export const AppWrapper = styled.div`
 `
 
 export const MainWrapper = styled.div`
-  border-radius: 1rem;
-  background-color: #f4f6f9;
   width: 80%;
-  @media (min-width: ${screens.lg}) {
-    width: 40%;
+
+  @media (min-width: ${screens.sm}) {
+    display: block;
+    width: 65%;
   }
+
+  @media (min-width: ${screens.md}) {
+    width: 85%;
+    display: flex;
+  }
+
+  @media (min-width: ${screens.lg}) {
+    width: 65%;
+  }
+
+  @media (min-width: ${screens.xl}) {
+    width: 110rem;
+  }
+
   margin: 0 auto;
 `
+
 export const MainTitle = styled.h1`
   font-size: 2.5rem;
   @media (min-width: ${screens.lg}) {
     font-size: 3rem;
   }
+
   text-align: center;
   color: ${colors.gray[600]};
 `
