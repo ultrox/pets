@@ -12,7 +12,7 @@ const ANIMALS = [
   'scales-fins-other',
   'small-furry',
 ]
-export default function Sidebar({onPetSubmit}) {
+export default function Sidebar({onPetSubmit, breeds}) {
   return (
     <SidebarStyles>
       <Form
@@ -38,7 +38,9 @@ export default function Sidebar({onPetSubmit}) {
         <label>
           Breed
           <select>
-            <option />
+            {breeds.map(b => (
+              <option key={b.name}>{b.name}</option>
+            ))}
           </select>
         </label>
         <button>Submit</button>
