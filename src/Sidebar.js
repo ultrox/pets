@@ -31,7 +31,9 @@ export default function Sidebar({onPetSubmit, breeds}) {
           Animal
           <select>
             {ANIMALS.map(a => (
-              <option key={a}>{a}</option>
+              <option value={a} key={a}>
+                {capitalize(a)}
+              </option>
             ))}
           </select>
         </label>
@@ -47,6 +49,10 @@ export default function Sidebar({onPetSubmit, breeds}) {
       </Form>
     </SidebarStyles>
   )
+}
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase()
 }
 
 const Form = styled.form`
