@@ -14,13 +14,55 @@ const ANIMALS = [
   'small-furry',
 ]
 
+function petReducer(state, action) {
+  switch (action.type) {
+    case 'SET_ERROR': {
+      return {...state, ...action.payload}
+    }
+    case 'SET_ALL_BREEDS': {
+      return {...state, ...action.payload}
+    }
+    case 'SET_ACTIVE_BREED': {
+      return {...state, activeBreed: action.payload}
+    }
+    case 'LOADING': {
+      return {...state, ...action.payload}
+    }
+    case 'SET_ACTIVE_ANIMAL': {
+      return {...state, ...action.payload}
+    }
+    default: {
+      throw new Error(`Action ${action.type} is not supported!`)
+    }
+  }
+}
+
+let petState = null
+
 export default function Sidebar({onPetSubmit}) {
-  const [currentLocation] = React.useState('Seattel, WA')
-  const [activeAnimal, setActiveAnimal] = React.useState('')
-  const [allBreeds, setAllBreeds] = React.useState([])
-  const [activeBreed, setActiveBreed] = React.useState('')
-  const [loading, setLoading] = React.useState(false)
-  const [touched, setTouched] = React.useState(false)
+  const [state, dispatch] = React.useReducer(
+    petReducer,
+    petState || {
+      currentLocation: 'Seattle,+WA',
+      allBreeds: [],
+      activeBreed: '',
+      activeAnimal: '',
+      touched: false,
+      loading: false,
+      error: null,
+    },
+  )
+
+  petState = state
+
+  const {
+    touched,
+    activeAnimal,
+    activeBreed,
+    allBreeds,
+    currentLocation,
+    loading,
+  } = state
 
   function isBreedsEmpty() {
     return allBreeds.length === 0
@@ -50,22 +92,31 @@ export default function Sidebar({onPetSubmit}) {
           <select
             value={activeAnimal}
             onChange={evn => {
-              setLoading(true)
-              setTouched(true)
-              setActiveAnimal(evn.target.value)
+              dispatch({
+                type: 'SET_ACTIVE_ANIMAL',
+                payload: {
+                  activeAnimal: evn.target.value,
+                  loading: true,
+                  touched: true,
+                },
+              })
               api
                 .getAnimalBreeads(evn.target.value)
                 .then(data => {
                   const {breeds} = data
-                  setActiveBreed(breeds[0].name)
-                  setAllBreeds(breeds)
+                  dispatch({
+                    type: 'SET_ALL_BREEDS',
+                    payload: {
+                      activeBreed: breeds[0].name,
+                      allBreeds: breeds,
+                    },
+                  })
                 })
-                .catch(err => {
-                  // TODO: better handaling for errors
-                  console.error(err, 'err')
+                .catch(error => {
+                  dispatch({type: 'SET_ERROR', payload: {error}})
                 })
                 .finally(() => {
-                  setLoading(false)
+                  dispatch({type: 'LOADING', payload: {loading: false}})
                 })
             }}
             onBlur={() => {}}
@@ -85,7 +136,7 @@ export default function Sidebar({onPetSubmit}) {
             disabled={isBreedsEmpty()}
             onBlur={() => {}}
             onChange={evn => {
-              setActiveBreed(evn.target.value)
+              dispatch({type: 'SET_ACTIVE_BREED', payload: evn.target.value})
             }}
           >
             {allBreeds.map(b => (
