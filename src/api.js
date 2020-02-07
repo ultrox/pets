@@ -1,5 +1,16 @@
 const BASE_URL = 'https://pets.dev-apis.com/'
+/**
+ * Object → Promise
+ * returns request promise with arr of pets
+ */
 
+export function getPetsForAdoption(data) {
+  const {location, breed, type} = data
+  const endpoint =
+    BASE_URL + `animals?location=${location}&breed=${breed}&type=${type}`
+
+  return fetchFrom(endpoint)
+}
 /**
  * String → Promise
  * returns promise of array animal breeds

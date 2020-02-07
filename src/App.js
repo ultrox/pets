@@ -4,18 +4,33 @@ import {Main} from 'src/styles/layout'
 import Sidebar from 'src/Sidebar'
 import Pet from 'src/Pet'
 import styled from 'styled-components'
+import * as api from 'src/api'
 
-function noop() {}
 function App() {
+  const [pets, setPets] = React.useState([])
+
+  function handleSubmission(data) {
+    console.log(data)
+    api
+      .getPetsForAdoption(data)
+      .then(({animals}) => {
+        console.log(animals, 'whoot')
+        setPets(animals)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
   return (
     <AppWrapper>
       <GenericStyles />
 
       <MainWrapper>
-        <Sidebar onPetSubmit={noop} />
+        <Sidebar onPetSubmit={handleSubmission} />
         <Main>
           <Content>
-            <Pets pets={{}} />
+            <Pets pets={pets} />
           </Content>
         </Main>
       </MainWrapper>
@@ -23,31 +38,9 @@ function App() {
   )
 }
 
-const fakePetData = {
-  photos: [
-    {
-      small:
-        'https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44594159/1/?bust=1556767422&width=100',
-    },
-  ],
-  name: 'Fat Boy Slim',
-  type: 'Dog',
-  url: '',
-  id: '112',
-  breeds: {
-    primary: 'Rottweiler',
-  },
-  contact: {
-    address: {
-      city: 'Stanwood',
-      state: 'WA',
-    },
-  },
-}
-
-function Pets() {
-  return [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}].map(p => {
-    return <Pet key={p.id} pet={fakePetData} />
+function Pets({pets}) {
+  return pets.map(p => {
+    return <Pet key={p.id} pet={p} />
   })
 }
 
