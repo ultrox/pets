@@ -6,7 +6,7 @@ export default function Pet({pet}) {
   return (
     <PetStyle>
       <Content>
-        <PetImage src={pet.photos[0].small} alt="pet" />
+        <PetImage src={getPetImage(pet.photos)} alt="pet" />
         <PetInfo>
           <PetLink href={`pet/${pet.id}`}>
             <PetName>{pet.name}</PetName>
@@ -19,7 +19,9 @@ export default function Pet({pet}) {
     </PetStyle>
   )
 }
-
+function getPetImage(photos) {
+  return (photos[0] || {small: '/placeholder.png'}).small
+}
 const PetLink = styled.a`
   color: ${colors.gray[900]};
   text-decoration: none;
