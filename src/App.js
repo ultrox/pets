@@ -10,11 +10,9 @@ function App() {
   const [pets, setPets] = React.useState([])
 
   function handleSubmission(data) {
-    console.log(data)
     api
       .getPetsForAdoption(data)
       .then(({animals}) => {
-        console.log(animals, 'whoot')
         setPets(animals)
       })
       .catch(err => {

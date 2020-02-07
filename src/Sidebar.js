@@ -33,7 +33,11 @@ export default function Sidebar({onPetSubmit}) {
         method="POST"
         onSubmit={e => {
           e.preventDefault()
-          const formData = {activeAnimal, activeBreed, currentLocation}
+          const formData = {
+            type: activeAnimal,
+            breed: activeBreed,
+            location: currentLocation,
+          }
           onPetSubmit(formData)
         }}
       >
