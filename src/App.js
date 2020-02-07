@@ -34,7 +34,13 @@ function App() {
             <Route exact path="/">
               <Sidebar onPetSubmit={handleSubmission} />
               <Main>
-                <Pets pets={pets} />
+                {pets.length ? (
+                  <Pets pets={pets} />
+                ) : (
+                  <center>
+                    <h3>No Pets found!!</h3>
+                  </center>
+                )}
               </Main>
             </Route>
             <Route path="/:id">
