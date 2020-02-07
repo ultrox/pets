@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {colors} from 'src/styles/settings'
+import {Link} from 'react-router-dom'
 
 export default function Pet({pet}) {
   return (
@@ -8,7 +9,7 @@ export default function Pet({pet}) {
       <Content>
         <PetImage src={getPetImage(pet.photos)} alt="pet" />
         <PetInfo>
-          <PetLink href={`pet/${pet.id}`}>
+          <PetLink to={`/${pet.id}`}>
             <PetName>{pet.name}</PetName>
           </PetLink>
           <PetMeta>
@@ -22,13 +23,15 @@ export default function Pet({pet}) {
 function getPetImage(photos) {
   return (photos[0] || {small: '/placeholder.png'}).small
 }
-const PetLink = styled.a`
+
+const PetLink = styled(Link)`
   color: ${colors.gray[900]};
   text-decoration: none;
   &:hover {
     color: ${colors.gray[800]};
   }
 `
+
 const PetStyle = styled.article`
   color: ${colors.gray[800]};
   padding: 3rem 0;
