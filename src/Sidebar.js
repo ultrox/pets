@@ -44,6 +44,7 @@ export default function Sidebar({onPetSubmit}) {
         <label>
           Animal
           <select
+            value={activeAnimal}
             onChange={evn => {
               setLoading(true)
               setTouched(true)
@@ -76,6 +77,7 @@ export default function Sidebar({onPetSubmit}) {
         <label>
           Breed
           <select
+            value={activeBreed}
             disabled={isBreedsEmpty()}
             onBlur={() => {}}
             onChange={evn => {
@@ -83,7 +85,9 @@ export default function Sidebar({onPetSubmit}) {
             }}
           >
             {allBreeds.map(b => (
-              <option key={b.name}>{b.name}</option>
+              <option value={b.name} key={b.name}>
+                {b.name}
+              </option>
             ))}
           </select>
         </label>
