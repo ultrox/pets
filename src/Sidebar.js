@@ -87,7 +87,7 @@ export default function Sidebar({onPetSubmit}) {
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <button disabled={!touched}>Submit</button>
       </PetForm>
     </SidebarStyles>
   )
