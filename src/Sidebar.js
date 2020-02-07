@@ -19,7 +19,7 @@ export default function Sidebar({onPetSubmit}) {
   const [activeAnimal, setActiveAnimal] = React.useState('')
   const [allBreeds, setAllBreeds] = React.useState([])
   const [activeBreed, setActiveBreed] = React.useState('')
-
+  const [loading, setLoading] = React.useState(false)
   const [touched, setTouched] = React.useState(false)
 
   function isBreedsEmpty() {
@@ -28,7 +28,8 @@ export default function Sidebar({onPetSubmit}) {
 
   return (
     <SidebarStyles>
-      <Form
+      <PetForm
+        disabled={loading}
         method="POST"
         onSubmit={e => {
           e.preventDefault()
@@ -44,6 +45,7 @@ export default function Sidebar({onPetSubmit}) {
           Animal
           <select
             onChange={evn => {
+              setLoading(true)
               setTouched(true)
               setActiveAnimal(evn.target.value)
               api
@@ -56,6 +58,9 @@ export default function Sidebar({onPetSubmit}) {
                 .catch(err => {
                   // TODO: better handaling for errors
                   console.error(err, 'err')
+                })
+                .finally(() => {
+                  setLoading(false)
                 })
             }}
             onBlur={() => {}}
@@ -83,7 +88,7 @@ export default function Sidebar({onPetSubmit}) {
           </select>
         </label>
         <button>Submit</button>
-      </Form>
+      </PetForm>
     </SidebarStyles>
   )
 }
@@ -92,14 +97,30 @@ function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1).toLowerCase()
 }
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+function PetForm({children, ...props}) {
+  const ResetFieldset = `
+    border: 0;
+    padding: 0.01em 0 0 0;
+    margin: 0;
+    min-width: 0;
+  `
 
-  select,
-  input {
-    display: block;
-    width: 100%;
-  }
-`
+  const Fieldset = styled.fieldset`
+    ${ResetFieldset}
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    select,
+    input {
+      display: block;
+      width: 100%;
+    }
+  `
+  const {disabled, ...rest} = props
+  return (
+    <form {...rest}>
+      <Fieldset disabled={disabled}>{children}</Fieldset>
+    </form>
+  )
+}
